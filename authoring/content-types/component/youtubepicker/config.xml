@@ -1,4 +1,4 @@
-<content-type name="/component/youtubepicker" is-wcm-type="true">
+<content-type name="/component/plugins/org/craftercms/plugin/youtubepicker/youtubepicker" is-wcm-type="true">
 <label>Youtube Picker</label>
 <form>/component/plugins/org/craftercms/plugin/youtubepicker/youtubepicker</form>
 <form-path>simple</form-path>

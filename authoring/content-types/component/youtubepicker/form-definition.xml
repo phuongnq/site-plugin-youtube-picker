@@ -309,7 +309,7 @@
 					</constraints>
 				</field>
 				<field>
-					<type>youtube-picker</type>
+					<type>youtubepicker</type>
 					<id>youTubeID</id>
 					<iceId></iceId>
 					<title>YouTube Picker</title>
@@ -318,7 +318,7 @@
 					<help></help>
 					<plugin>
 						<type>control</type>
-						<name>youtube-picker</name>
+						<name>youtubepicker</name>
 						<filename>main.js</filename>
 					</plugin>
 					<properties>

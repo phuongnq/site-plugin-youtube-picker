@@ -1,3 +1,5 @@
+<#import "/templates/system/common/cstudio-support.ftl" as studio />
+
 <section>
   <header class="major">
     <h2>${contentModel.title_s}</h2>

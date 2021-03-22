@@ -197,7 +197,7 @@
       },
 
       getName: function() {
-        return 'youtube-picker';
+        return 'youtubepicker';
       },
 
       getSupportedProperties: function() {
@@ -213,5 +213,5 @@
       }
     });
 
-    CStudioAuthoring.Module.moduleLoaded('youtube-picker', CStudioForms.Controls.YoutubePicker);
+    CStudioAuthoring.Module.moduleLoaded('youtubepicker', CStudioForms.Controls.YoutubePicker);
   })();
