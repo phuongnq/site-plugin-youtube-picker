@@ -10,7 +10,7 @@
 		<property>
 			<name>display-template</name>
 			<label>Display Template</label>
-			<value>/templates/plugins/org/craftercms/plugin/youtubepicker/youtube-component.ftl</value>
+			<value>/templates/plugins/org/craftercms/plugin/youtubepicker/youtubepicker-component.ftl</value>
 			<type>template</type>
 		</property>
 		<property>

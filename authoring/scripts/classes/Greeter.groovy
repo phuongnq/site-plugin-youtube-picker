@@ -1,4 +1,4 @@
-package org.craftercms.plugin.test
+package org.craftercms.plugin.youtubepicker
 
 class Greeter {
 
