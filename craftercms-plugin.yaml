@@ -6,31 +6,31 @@ descriptorVersion: 2
 # Describe the plugin
 plugin:
   type: site
-  id: org.craftercms.plugin.test
-  name: Site Plugin Example
+  id: org.craftercms.plugin.youtubepicker
+  name: Youtube Picker Plugin
   tags:
-    - test
+    - youtube
   version:
-    major: 3
+    major: 0
     minor: 0
     patch: 1
-  description: A simple example for site plugins
+  description: A plugin to search and insert YouTube videos
   website:
-    name: Site Plugin Example
-    url: https://github.com/craftercms/site-plugins-example
+    name: Youtube Picker Plugin
+    url: https://github.com/phuongnq/site-plugin-youtube-picker
   media:
     screenshots:
       - title: Crafter CMS
-        description: Crafter CMS Example Plugin
-        url: "https://raw.githubusercontent.com/craftercms/site-plugin-example/master/.crafter/logo.svg"
+        description: Crafter CMS Plugin YouTube Picker
+        url: "https://raw.githubusercontent.com/phuongnq/site-plugin-youtube-picker/master/.crafter/logo.svg"
   developer:
     company:
       name: Crafter Software
       email: info@craftersoftware.com
       url: https://craftersoftware.com
   build:
-    id: c3d2a5444e6a24b5e0481d6ba87901d0b02716c8
-    date: 2019-03-18T00:00:00Z
+    id: c3d2a5444e6a24b5e0481d6ba87901d0b02716c9
+    date: 2021-03-22T00:00:00Z
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
