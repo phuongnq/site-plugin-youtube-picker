@@ -2,27 +2,15 @@
     var React = CrafterCMSNext.React;
     var ReactDOM = CrafterCMSNext.ReactDOM;
 
-    function searchYouTube(keyword) {
+    async function searchYouTube(keyword) {
       const url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${keyword}&key=AIzaSyBAQK6l_uH5cYPSMRrU9kZUP0cfJjKc3Cs`
-      const req  = new XMLHttpRequest();
-      return new Promise(( resolve , reject )=>{
-        req.onreadystatechange = function() {
-          if (this.readyState == 4){
-            if(this.status == 200){
-              let response = JSON.parse(this.response);
-              resolve(response);
-            }else{
-              let err = JSON.parse(this.response);
-              reject(err);
-            }
-          }
-        }
-        req.onerror = function(e){
-          reject(new Error (this.statusText) );
-        }
-        req.open('GET',url,true);
-        req.send(null);
-      });
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data || undefined;
+      } catch (ex) {
+        return undefined;
+      }
     }
 
     function SearchBar({ onSearchSubmit }) {
