@@ -227,7 +227,7 @@
 			<properties>
 				<property>
 					<name>contentType</name>
-					<value>/component/youtubepicker</value>
+					<value>/component/plugins/org/craftercms/plugin/youtubepicker/youtubepicker</value>
 						<type>string</type>
 				</property>
 			</properties>
