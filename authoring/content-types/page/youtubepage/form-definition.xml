@@ -2,7 +2,7 @@
 	<title>YouTube Page</title>
 	<description></description>
 	<objectType>page</objectType>
-	<content-type>/page/youtubepage</content-type>
+	<content-type>/page/plugins/org/craftercms/plugin/youtubepicker/youtubepicker</content-type>
 	<imageThumbnail>undefined</imageThumbnail>
 	<quickCreate>false</quickCreate>
 	<quickCreatePath></quickCreatePath>
