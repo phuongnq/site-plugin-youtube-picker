@@ -1,5 +1,5 @@
 <form>
-	<title>Youtube Picker</title>
+	<title>YouTube Picker</title>
 	<description></description>
 	<objectType>component</objectType>
 	<content-type>/component/plugins/org/craftercms/plugin/youtubepicker/youtubepicker</content-type>
@@ -28,7 +28,7 @@
 	</properties>
 	<sections>
 		<section>
-			<title>Youtube Picker Properties</title>
+			<title>YouTube Picker Properties</title>
 			<description></description>
 			<defaultOpen>true</defaultOpen>
 			<fields>
@@ -120,7 +120,7 @@
 					<type>input</type>
 					<id>youtubeID_s</id>
 					<iceId></iceId>
-					<title>Youtube ID</title>
+					<title>YouTube ID</title>
 					<description></description>
 					<defaultValue></defaultValue>
 					<help></help>

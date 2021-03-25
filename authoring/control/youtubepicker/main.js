@@ -37,7 +37,7 @@
       }
     }, /*#__PURE__*/React.createElement("input", {
       type: "text",
-      placeholder: "Search Youtube",
+      placeholder: "Search YouTube",
       className: "form-control",
       onChange: searchChange
     })));
@@ -140,7 +140,7 @@
       $('#posterImage_s').find('input')[0].value = video.snippet.thumbnails.high.url;
     };
 
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Youtube Picker"), /*#__PURE__*/React.createElement(SearchBar, {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "YouTube Picker"), /*#__PURE__*/React.createElement(SearchBar, {
       onSearchSubmit: keyword => videoSearch(keyword)
     }), /*#__PURE__*/React.createElement(VideoDetail, {
       video: selectedVideo
@@ -187,7 +187,7 @@
 
   YAHOO.extend(CStudioForms.Controls.YoutubePicker, CStudioForms.CStudioFormField, {
     getLabel: function () {
-      return 'Youtube Picker';
+      return 'YouTube Picker';
     },
     render: function (config, containerEl) {
       // we need to make the general layout of a control inherit from common

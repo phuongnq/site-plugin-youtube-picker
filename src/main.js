@@ -30,7 +30,7 @@
           <form onSubmit={submitSearch} style={{marginTop:'20px'}}>
             <input
               type="text"
-              placeholder="Search Youtube"
+              placeholder="Search YouTube"
               className="form-control"
               onChange={searchChange}
             />
@@ -138,7 +138,7 @@
 
     return (
       <div>
-        <h4>Youtube Picker</h4>
+        <h4>YouTube Picker</h4>
         <SearchBar onSearchSubmit={(keyword) => videoSearch(keyword)} />
         <VideoDetail video={selectedVideo}/>
         <VideoList
@@ -185,7 +185,7 @@
 
   YAHOO.extend(CStudioForms.Controls.YoutubePicker, CStudioForms.CStudioFormField, {
     getLabel: function() {
-      return 'Youtube Picker';
+      return 'YouTube Picker';
     },
 
     render: function(config, containerEl) {

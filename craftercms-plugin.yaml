@@ -7,7 +7,7 @@ descriptorVersion: 2
 plugin:
   type: site
   id: org.craftercms.plugin.youtubepicker
-  name: Youtube Picker Plugin
+  name: YouTube Picker Plugin
   tags:
     - youtube
   version:
@@ -16,7 +16,7 @@ plugin:
     patch: 1
   description: A plugin to search and insert YouTube videos
   website:
-    name: Youtube Picker Plugin
+    name: YouTube Picker Plugin
     url: https://github.com/phuongnq/site-plugin-youtube-picker
   media:
     screenshots:

@@ -171,7 +171,7 @@
 					<type>node-selector</type>
 					<id>youtubeWidget_o</id>
 					<iceId></iceId>
-					<title>Youtube Widget</title>
+					<title>YouTube Widget</title>
 					<description></description>
 					<defaultValue></defaultValue>
 					<help></help>
@@ -222,7 +222,7 @@
 		<datasource>
 			<type>embedded-content</type>
 			<id>youtubeComponent</id>
-			<title>Youtube Component</title>
+			<title>YouTube Component</title>
 			<interface>item</interface>
 			<properties>
 				<property>
