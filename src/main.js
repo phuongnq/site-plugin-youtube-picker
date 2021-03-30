@@ -58,8 +58,11 @@
 
   function VideoListItem({ video, onVideoSelect }) {
     const imgUrl = video.snippet.thumbnails.default.url;
+
+    const rowStyle = { cursor: 'pointer' };
+
     return (
-      <li className="list-group-item"  onClick={() => onVideoSelect(video)}>
+      <li style={rowStyle} className="list-group-item"  onClick={() => onVideoSelect(video)}>
         <div className="video-list-media">
           <div className="media-left">
             <img className="media-object" src={imgUrl} />
@@ -115,6 +118,7 @@
         setVideos(res.items);
         setSelectedVideo(res.items[0]);
         const video = res.items[0];
+        onValueChange(JSON.stringify(video));
       }
     };
 
@@ -194,8 +198,6 @@
     },
 
     render: function(config, containerEl) {
-      // we need to make the general layout of a control inherit from common
-      // you should be able to override it -- but most of the time it wil be the same
       containerEl.id = this.id;
       this.containerEl = containerEl;
       this._renderReactComponent(this);
@@ -206,7 +208,9 @@
     },
 
     setValue: function(value) {
-      this.value = value;
+      if (value) {
+        this.value = value;
+      }
       this._renderReactComponent(this);
     },
 

@@ -65,7 +65,11 @@
     onVideoSelect
   }) {
     const imgUrl = video.snippet.thumbnails.default.url;
+    const rowStyle = {
+      cursor: 'pointer'
+    };
     return /*#__PURE__*/React.createElement("li", {
+      style: rowStyle,
       className: "list-group-item",
       onClick: () => onVideoSelect(video)
     }, /*#__PURE__*/React.createElement("div", {
@@ -91,9 +95,16 @@
 
     const videoId = video.id.videoId;
     const url = `https://youtube.com/embed/${videoId}`;
+    const title = video.snippet.title;
+    const imgUrl = video.snippet.thumbnails.high.url;
+    const description = video.snippet.description;
     return /*#__PURE__*/React.createElement("div", {
-      className: "video-detail col-md-8"
-    }, /*#__PURE__*/React.createElement("div", {
+      className: "video-detail col-md-12 text-center"
+    }, /*#__PURE__*/React.createElement("h2", null, title), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("img", {
+      src: imgUrl
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "panel-body"
+    }, /*#__PURE__*/React.createElement("div", null, description)), /*#__PURE__*/React.createElement("div", {
       className: "embed-responsive embed-responsive-16by9",
       style: {
         marginTop: '20px'
@@ -101,15 +112,15 @@
     }, /*#__PURE__*/React.createElement("iframe", {
       className: "embed-responsive-item",
       src: url
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "details"
-    }, /*#__PURE__*/React.createElement("div", null, video.snippet.title), /*#__PURE__*/React.createElement("div", null, video.snippet.description)));
+    })));
   }
 
   function MyPicker({
-    googleApiKey
+    googleApiKey,
+    video,
+    onValueChange
   }) {
-    const [selectedVideo, setSelectedVideo] = React.useState(null);
+    const [selectedVideo, setSelectedVideo] = React.useState(video);
     const [videos, setVideos] = React.useState([]);
 
     const videoSearch = async keyword => {
@@ -119,28 +130,16 @@
         setVideos(res.items);
         setSelectedVideo(res.items[0]);
         const video = res.items[0];
-        updateInputs(video);
+        onValueChange(JSON.stringify(video));
       }
     };
 
     const onSelectVideo = video => {
       setSelectedVideo(video);
-      updateInputs(video);
+      onValueChange(JSON.stringify(video));
     };
 
-    const updateInputs = video => {
-      if (typeof $ !== 'function') return;
-      $('#youtubeID_s').find('input')[0].focus();
-      $('#youtubeID_s').find('input')[0].value = video.id.videoId;
-      $('#title_s').find('input')[0].focus();
-      $('#title_s').find('input')[0].value = video.snippet.title;
-      $('#description_t').find('textarea')[0].focus();
-      $('#description_t').find('textarea')[0].value = video.snippet.description;
-      $('#posterImage_s').find('input')[0].focus();
-      $('#posterImage_s').find('input')[0].value = video.snippet.thumbnails.high.url;
-    };
-
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "YouTube Picker"), /*#__PURE__*/React.createElement(SearchBar, {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "YouTube Picker"), /*#__PURE__*/React.createElement(SearchBar, {
       onSearchSubmit: keyword => videoSearch(keyword)
     }), /*#__PURE__*/React.createElement(VideoDetail, {
       video: selectedVideo
@@ -189,20 +188,37 @@
     getLabel: function () {
       return 'YouTube Picker';
     },
-    render: function (config, containerEl) {
-      // we need to make the general layout of a control inherit from common
-      // you should be able to override it -- but most of the time it wil be the same
-      containerEl.id = this.id;
-      var googleApiKey = this.googleapi_key;
+    _renderReactComponent: function (obj) {
+      var googleApiKey = obj.googleapi_key;
+      var video = obj.value === '_not-set' ? null : JSON.parse(obj.value);
+
+      const onValueChange = value => {
+        obj.value = value;
+        obj.form.updateModel(obj.id, value);
+      };
+
+      ReactDOM.unmountComponentAtNode(obj.containerEl);
       ReactDOM.render( /*#__PURE__*/React.createElement(MyPicker, {
-        googleApiKey
-      }), containerEl);
+        googleApiKey,
+        video,
+        onValueChange
+      }), obj.containerEl);
+    },
+    render: function (config, containerEl) {
+      containerEl.id = this.id;
+      this.containerEl = containerEl;
+
+      this._renderReactComponent(this);
     },
     getValue: function () {
       return this.value;
     },
     setValue: function (value) {
-      this.value = value;
+      if (value) {
+        this.value = value;
+      }
+
+      this._renderReactComponent(this);
     },
     getName: function () {
       return 'youtubepicker';
