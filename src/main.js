@@ -2,12 +2,12 @@
   var React = CrafterCMSNext.React;
   var ReactDOM = CrafterCMSNext.ReactDOM;
 
-  async function searchYouTube(keyword, googleApiKey) {
-    const url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${keyword}&key=${googleApiKey}`
+  async function searchYouTube(keyword) {
+    const url = `${location.origin}/api/1/services/plugins/org/craftercms/plugin/youtubepicker/youtubepicker.json?keyword=${keyword}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
-      return data || undefined;
+      return JSON.parse(data) || undefined;
     } catch (ex) {
       return undefined;
     }
@@ -100,12 +100,12 @@
     )
   }
 
-  function MyPicker({ googleApiKey }) {
+  function MyPicker() {
     const [selectedVideo, setSelectedVideo] = React.useState(null);
     const [videos, setVideos] = React.useState([]);
 
     const videoSearch = async (keyword) => {
-      const res = await searchYouTube(keyword, googleApiKey);
+      const res = await searchYouTube(keyword);
 
       if (res && res.items && res.items.length >= 0) {
         setVideos(res.items);
@@ -172,12 +172,6 @@
       if (required) {
         this.required = required.value === 'true';
       }
-      var googleapi_key = properties.find(function(property) {
-        return property.name === 'googleapi_key';
-      });
-      if (googleapi_key) {
-        this.googleapi_key = googleapi_key.value;
-      }
     }
 
     return this;
@@ -192,9 +186,8 @@
       // we need to make the general layout of a control inherit from common
       // you should be able to override it -- but most of the time it wil be the same
       containerEl.id = this.id;
-      var googleApiKey = this.googleapi_key;
 
-      ReactDOM.render( /*#__PURE__*/React.createElement(MyPicker, { googleApiKey }), containerEl);
+      ReactDOM.render( /*#__PURE__*/React.createElement(MyPicker, null), containerEl);
     },
 
     getValue: function() {
@@ -207,10 +200,6 @@
 
     getName: function() {
       return 'youtubepicker';
-    },
-
-    getSupportedProperties: function() {
-      return [{ label: 'Google API Key', name: 'googleapi_key', type: 'string', defaultValue: '' }];
     },
 
     getSupportedConstraints: function() {
