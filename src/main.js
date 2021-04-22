@@ -97,10 +97,11 @@
       <div className="video-detail col-md-12 text-center">
         <h2>{title}</h2>
         <div><img src={imgUrl} /></div>
-        <div className="panel-body">
+        <div className="panel-body" style={{ textAlign: "left" }}>
+          <div>Video ID: {videoId}</div>
           <div>{description}</div>
         </div>
-        <div className="embed-responsive embed-responsive-16by9" style={{marginTop:'20px'}}>
+        <div className="embed-responsive embed-responsive-16by9" style={{ marginTop: "20px" }}>
           <iframe className="embed-responsive-item" src={url}></iframe>
         </div>
       </div>
