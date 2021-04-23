@@ -4,13 +4,22 @@
   var React = CrafterCMSNext.React;
   var ReactDOM = CrafterCMSNext.ReactDOM;
 
-  async function searchYouTube(keyword) {
-    const url = `${location.origin}/api/1/services/plugins/org/craftercms/plugin/youtubepicker/youtubepicker.json?keyword=${keyword}`;
+  async function searchYouTube(siteId, keyword) {
+    const url = `${location.origin}/studio/api/2/plugin/script/org/craftercms/plugin/youtubepicker/youtubepicker/youtubepicker.json?siteId=${siteId}&keyword=${keyword}`;
 
     try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return JSON.parse(data) || undefined;
+      const rxGet = CrafterCMSNext.util.ajax.get;
+      const rxMap = CrafterCMSNext.rxjs.operators.map;
+      const response = await rxGet(url).pipe(rxMap(({
+        response
+      }) => response)).toPromise();
+      const result = response.result;
+
+      if (result && result.code === 200 && result.data) {
+        return JSON.parse(result.data) || undefined;
+      }
+
+      return undefined;
     } catch (ex) {
       return undefined;
     }
@@ -106,12 +115,14 @@
     }, /*#__PURE__*/React.createElement("div", null, video.snippet.title), /*#__PURE__*/React.createElement("div", null, video.snippet.description)));
   }
 
-  function MyPicker() {
+  function MyPicker({
+    siteId
+  }) {
     const [selectedVideo, setSelectedVideo] = React.useState(null);
     const [videos, setVideos] = React.useState([]);
 
-    const videoSearch = async keyword => {
-      const res = await searchYouTube(keyword);
+    const videoSearch = async (siteId, keyword) => {
+      const res = await searchYouTube(siteId, keyword);
 
       if (res && res.items && res.items.length >= 0) {
         setVideos(res.items);
@@ -139,7 +150,7 @@
     };
 
     return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "YouTube Picker"), /*#__PURE__*/React.createElement(SearchBar, {
-      onSearchSubmit: keyword => videoSearch(keyword)
+      onSearchSubmit: keyword => videoSearch(siteId, keyword)
     }), /*#__PURE__*/React.createElement(VideoDetail, {
       video: selectedVideo
     }), /*#__PURE__*/React.createElement(VideoList, {
@@ -180,10 +191,11 @@
       return 'YouTube Picker';
     },
     render: function (config, containerEl) {
-      // we need to make the general layout of a control inherit from common
-      // you should be able to override it -- but most of the time it wil be the same
       containerEl.id = this.id;
-      ReactDOM.render( /*#__PURE__*/React.createElement(MyPicker, null), containerEl);
+      const siteId = CStudioAuthoringContext.site;
+      ReactDOM.render(React.createElement(MyPicker, {
+        siteId
+      }), containerEl);
     },
     getValue: function () {
       return this.value;

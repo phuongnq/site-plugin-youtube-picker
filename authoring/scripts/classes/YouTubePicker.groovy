@@ -1,6 +1,6 @@
 package org.craftercms.plugin.youtubepicker
 
-class Greeter {
+class YouTubePicker {
 
   def greet() {
     "hello!"
