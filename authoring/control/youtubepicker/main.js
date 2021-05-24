@@ -4,13 +4,22 @@
   var React = CrafterCMSNext.React;
   var ReactDOM = CrafterCMSNext.ReactDOM;
 
-  async function searchYouTube(keyword, googleApiKey) {
-    const url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${keyword}&key=${googleApiKey}`;
+  async function searchYouTube(siteId, keyword) {
+    const url = `${location.origin}/studio/api/2/plugin/script/org/craftercms/plugin/youtubepicker/youtubepicker/youtubepicker.json?siteId=${siteId}&keyword=${keyword}`;
 
     try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return data || undefined;
+      const rxGet = CrafterCMSNext.util.ajax.get;
+      const rxMap = CrafterCMSNext.rxjs.operators.map;
+      const response = await rxGet(url).pipe(rxMap(({
+        response
+      }) => response)).toPromise();
+      const result = response.result;
+
+      if (result && result.code === 200 && result.data) {
+        return JSON.parse(result.data) || undefined;
+      }
+
+      return undefined;
     } catch (ex) {
       return undefined;
     }
@@ -107,13 +116,13 @@
   }
 
   function MyPicker({
-    googleApiKey
+    siteId
   }) {
     const [selectedVideo, setSelectedVideo] = React.useState(null);
     const [videos, setVideos] = React.useState([]);
 
-    const videoSearch = async keyword => {
-      const res = await searchYouTube(keyword, googleApiKey);
+    const videoSearch = async (siteId, keyword) => {
+      const res = await searchYouTube(siteId, keyword);
 
       if (res && res.items && res.items.length >= 0) {
         setVideos(res.items);
@@ -141,7 +150,7 @@
     };
 
     return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "YouTube Picker"), /*#__PURE__*/React.createElement(SearchBar, {
-      onSearchSubmit: keyword => videoSearch(keyword)
+      onSearchSubmit: keyword => videoSearch(siteId, keyword)
     }), /*#__PURE__*/React.createElement(VideoDetail, {
       video: selectedVideo
     }), /*#__PURE__*/React.createElement(VideoList, {
@@ -172,14 +181,6 @@
       if (required) {
         this.required = required.value === 'true';
       }
-
-      var googleapi_key = properties.find(function (property) {
-        return property.name === 'googleapi_key';
-      });
-
-      if (googleapi_key) {
-        this.googleapi_key = googleapi_key.value;
-      }
     }
 
     return this;
@@ -190,12 +191,10 @@
       return 'YouTube Picker';
     },
     render: function (config, containerEl) {
-      // we need to make the general layout of a control inherit from common
-      // you should be able to override it -- but most of the time it wil be the same
       containerEl.id = this.id;
-      var googleApiKey = this.googleapi_key;
-      ReactDOM.render( /*#__PURE__*/React.createElement(MyPicker, {
-        googleApiKey
+      const siteId = CStudioAuthoringContext.site;
+      ReactDOM.render(React.createElement(MyPicker, {
+        siteId
       }), containerEl);
     },
     getValue: function () {
@@ -206,14 +205,6 @@
     },
     getName: function () {
       return 'youtubepicker';
-    },
-    getSupportedProperties: function () {
-      return [{
-        label: 'Google API Key',
-        name: 'googleapi_key',
-        type: 'string',
-        defaultValue: ''
-      }];
     },
     getSupportedConstraints: function () {
       return [];
